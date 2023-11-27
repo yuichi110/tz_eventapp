@@ -23,30 +23,36 @@ class Router(APIRouter):
         )
 
         self.add_api_route(
-            "/api/event/all-categories/",
+            "/api/event/categories/all/events/",
             self.get_all_category_events,
             methods=["GET"],
             response_model=list[EventSchema],
         )
 
         self.add_api_route(
-            "/api/event/categories/{category}/",
+            "/api/event/categories/{category}/events/",
             self.get_category_events,
             methods=["GET"],
             response_model=list[EventSchema],
         )
 
         self.add_api_route(
-            "/api/event/categories/{category}/{event_uuid}",
+            "/api/event/categories/{category}/events/{event_uuid}",
             self.get_category_event,
             methods=["GET"],
             response_model=EventSchema,
         )
 
         self.add_api_route(
-            "/image/event/{image_uuid}",
+            "/images/event/{name}",
             self.get_image,
             methods=["GET"],
+            responses={
+                200: {
+                    "content": "image/png",
+                    "description": "return image data",
+                },
+            },
         )
 
     def get_categories(self):
